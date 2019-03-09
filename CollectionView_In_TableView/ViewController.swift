@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         baseTableView.tableFooterView = UIView()
         baseTableView.rowHeight = 400.0
     }
-
+    
 }
 
 
@@ -44,6 +44,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BaseTableViewCell") as! BaseTableViewCell
         cell.setCollectionViewDelegate(dataSource: self, delegate: self, forRow: indexPath.row)
+        cell.cellTitleLabel.text = tableCellArray[indexPath.row]
         return cell
     }
 }
@@ -68,8 +69,15 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegate {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ScrollCollectionViewCell", for: indexPath) as! ScrollCollectionViewCell
         cell.scrollImageView.image = UIImage(named: "iosLogo.png")
         
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: collectionView.frame.size.width/2-8, height: collectionView.frame.size.width/2-8)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        collectionView.collectionViewLayout = layout
+        
         return cell
     }
+    
     
     
 }
